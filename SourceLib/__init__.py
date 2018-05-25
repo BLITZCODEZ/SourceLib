@@ -24,6 +24,6 @@
 # THE SOFTWARE.
 #------------------------------------------------------------------------------
 
-import SourceQuery
-import SourceRcon
-import SourceLog
+import SourceLib.SourceQuery
+import SourceLib.SourceRcon
+import SourceLib.SourceLog

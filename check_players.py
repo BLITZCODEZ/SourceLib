@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 import SourceLib
 import asyncore
@@ -10,7 +10,9 @@ query = SourceLib.SourceQuery.SourceQuery('127.0.0.1', 27016)
 
 info = query.info()
 #print info
-print(info['numplayers'])
+print(info)
+print('')
+print("Number of players: %d" % (info['numplayers']))
 
 
 
