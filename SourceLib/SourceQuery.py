@@ -31,13 +31,13 @@
 # TODO:  according to spec, packets may be bzip2 compressed.
 # TODO:: not implemented yet because I couldn't find a server that does this.
 
-import socket, struct, sys, time
-import StringIO
+import socket, struct, time
+from io import BytesIO
 
-PACKETSIZE=1400
+PACKETSIZE = 1400
 
-WHOLE=-1
-SPLIT=-2
+WHOLE = -1
+SPLIT = -2
 
 # REMOVED.  DEPRECATED QUERY!
 
@@ -63,7 +63,7 @@ A2S_RULES_REPLY = ord('E')
 CHALLENGE = -1
 S2C_CHALLENGE = ord('A')
 
-class SourceQueryPacket(StringIO.StringIO):
+class SourceQueryPacket(BytesIO):
     # putting and getting values
     def putByte(self, val):
         self.write(struct.pack('<B', val))
@@ -93,12 +93,12 @@ class SourceQueryPacket(StringIO.StringIO):
         return struct.unpack('<f', self.read(4))[0]
 
     def putString(self, val):
-        self.write(val + '\x00')
+        self.write(val.encode("utf-8") + b'\x00')
 
     def getString(self):
         val = self.getvalue()
         start = self.tell()
-        end = val.index('\0', start)
+        end = val.index(b'\0', start)
         val = val[start:end]
         self.seek(end+1)
         return val
